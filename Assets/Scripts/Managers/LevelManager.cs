@@ -7,6 +7,7 @@ public class LevelManager : MonoBehaviour {
     public GameObject ballPrefab;
 	private GameObject playersObject;
 	private PlayerAssignmentManager assignments;
+	private HUDManager hudManager;
     private TeamManager teams;
     private float ballRespawnTimer;
 
@@ -16,8 +17,9 @@ public class LevelManager : MonoBehaviour {
 		assignments = GameObject.Find("PlayerAssignmentManager").GetComponent<PlayerAssignmentManager>();
         teams = GameObject.Find("TeamManager").GetComponent<TeamManager>();
         playersObject = GameObject.Find("Players");
+		hudManager = GameObject.Find("HUDManager").GetComponent<HUDManager>();
 
-        ballRespawnTimer = 3;
+		ballRespawnTimer = 3;
 	}
 	
 	// Update is called once per frame
@@ -57,10 +59,13 @@ public class LevelManager : MonoBehaviour {
 	{
 		if (assignments.HasUnboundAssignments())
 		{
+			GameObject player;
 			foreach (var assignment in assignments.GetUnboundAssignments())
 			{
-				GameObject player = (GameObject)Instantiate(playerPrefab);
+				player = (GameObject)Instantiate(playerPrefab);
+
 				assignment.Bind(player);
+				hudManager.AddStatusForPlayer(player.GetComponent<Player>());
 				player.transform.parent = playersObject.transform;
 				player.transform.position = new Vector3(playersObject.transform.position.x, playersObject.transform.position.y, 0);
 			}

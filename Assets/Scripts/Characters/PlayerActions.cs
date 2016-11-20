@@ -30,7 +30,6 @@ public class PlayerActions : PlayerActionSet
 	{
 		var playerActions = new PlayerActions();
 
-
 		// Movement
 		// Keys
 		playerActions.Left.AddDefaultBinding(Key.LeftArrow);

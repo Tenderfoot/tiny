@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spawn
   - Ball
+  - PlayerStatus
   layers:
   - Default
   - TransparentFX

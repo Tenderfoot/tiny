@@ -6,7 +6,7 @@ public class PlayerStatus : MonoBehaviour {
 
 	public Image health, background, emptyRef, deadOverlay;
 	public Text Timer;
-	private Player player;
+	public Player player;
 
 	// Use this for initialization
 	void Start () {
