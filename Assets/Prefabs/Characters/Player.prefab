@@ -118,6 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7336e0e16f077934097821fd2e7d477a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  force: 20
+  jumpForce: 20000
+  ladder: {fileID: 0}
+  equippedWeapon: {fileID: 0}
 --- !u!212 &212000014266626296
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -8,6 +8,7 @@ public class TinyObject : MonoBehaviour {
 	// We can keep utility functions and useful things here
 	private List<Powerup> powerups = new List<Powerup>();
 
+
 	public void AddPowerup(string powerup_id)
 	{
 		var powerup = PowerupManager.FindById(powerup_id);

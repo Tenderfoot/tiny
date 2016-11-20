@@ -60,10 +60,10 @@ public class LevelManager : MonoBehaviour {
 		if (assignments.HasUnboundAssignments())
 		{
 			GameObject player;
+
 			foreach (var assignment in assignments.GetUnboundAssignments())
 			{
 				player = (GameObject)Instantiate(playerPrefab);
-
 				assignment.Bind(player);
 				hudManager.AddStatusForPlayer(player.GetComponent<Player>());
 				player.transform.parent = playersObject.transform;

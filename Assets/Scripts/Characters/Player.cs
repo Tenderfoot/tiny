@@ -10,6 +10,7 @@ public class Player : Movable {
 	protected InputDevice input;
 	private AnimatorStates states;
 
+
 	// Controls
 	public PlayerActions actions { get; set; }
 	private float joystickThreshold = 0.8f;
@@ -27,6 +28,9 @@ public class Player : Movable {
 	private float deadTime;
 	private int respawnTime;
 
+	// Weapon
+	public GameObject equippedWeapon;
+
 	void TogglePlayer(bool alive)
 	{
 		foreach (var collider in this.gameObject.GetComponents<Collider2D>())
@@ -42,6 +46,7 @@ public class Player : Movable {
 		health = 0;
 		TogglePlayer(false);
 		deadTime = 0;
+		equippedWeapon = null;
 	}
 
 	void RespawnPlayer()
@@ -96,9 +101,26 @@ public class Player : Movable {
 		return health == 0;
 	}
 
+	void CheckFire()
+	{
+		if (equippedWeapon != null)
+		{
+			if (actions.Trigger.IsPressed)
+			{
+				equippedWeapon.GetComponent<TinyWeapon>().OnTriggerPressed();
+			}
+			else
+			{
+				equippedWeapon.GetComponent<TinyWeapon>().OnTriggerReleased();
+			}
+		}
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
+		CheckFire();
+
 		if (OnLadder() && VerticalAction())
 			Climb();
 		else if (HorizontalAction())

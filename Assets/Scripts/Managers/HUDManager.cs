@@ -27,7 +27,7 @@ public class HUDManager : MonoBehaviour {
 
 		// parent it and scale it properly..
 		int numOfStatus = GameObject.FindGameObjectsWithTag("PlayerStatus").GetLength(0);
-		newGameObject.transform.parent = canvas.transform;
+		newGameObject.transform.SetParent(canvas.transform);
 		newGameObject.transform.localScale = new Vector3(1, 1, 1);
 		newGameObject.transform.position = new Vector3(refPosition.transform.position.x, refPosition.transform.position.y-(10*numOfStatus), 0);
 
