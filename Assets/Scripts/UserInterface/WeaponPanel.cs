@@ -31,6 +31,8 @@ public class WeaponPanel : MonoBehaviour {
 			weaponImage.enabled = true;
 			ammoRemaining.enabled = true;
 		}
+		else if (player != null && player.GetComponent<Player>().equippedWeapon == null)
+			weapon = null;
 
 		if(weapon != null)
 		{
@@ -49,6 +51,11 @@ public class WeaponPanel : MonoBehaviour {
 				reloadOverlay.rectTransform.position = Vector3.Lerp(endSize.position, startSize.position, timeRemaining);
 			}
 
+		}
+		else
+		{
+			weaponImage.enabled = false;
+			ammoRemaining.enabled = false;
 		}
 
 	}

@@ -121,12 +121,15 @@ public class Player : Movable {
 	{
 		CheckFire();
 
-		if (OnLadder() && VerticalAction())
-			Climb();
-		else if (HorizontalAction())
-			Walk();
-		else
-			Idle();
+		if (!IsDead())
+		{
+			if (OnLadder() && VerticalAction())
+				Climb();
+			else if (HorizontalAction())
+				Walk();
+			else
+				Idle();
+		}
 
 		UpdateVitals();
 
