@@ -33,7 +33,7 @@ public abstract class RaycastWeapon : TinyWeapon
 
 	void SpawnRay(RaycastHit2D hit, Vector2 dir)
 	{
-		GameObject rayEffectObj = (GameObject)Instantiate(rayEffect, new Vector2(transform.parent.transform.position.x+((hit.distance/2)*dir.x), transform.parent.transform.position.y), Quaternion.identity);
+		GameObject rayEffectObj = (GameObject)Instantiate(rayEffect, new Vector2(transform.parent.transform.position.x+dir.x+((hit.distance/2)*dir.x), transform.parent.transform.position.y), Quaternion.identity);
 		rayEffectObj.transform.localScale = new Vector3(hit.distance*dir.x, 0.25f, 1);
 	}
 

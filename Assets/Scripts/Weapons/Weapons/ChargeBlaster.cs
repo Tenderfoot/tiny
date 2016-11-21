@@ -19,7 +19,7 @@ public class ChargeBlaster : ProjectileWeapon
 		if (chargeTime < 0.5)
 			chargeTime = 0.5f;
 
-		newProjectile.transform.localScale = new Vector2(chargeTime*10, chargeTime*10);
+		newProjectile.transform.localScale = new Vector2(chargeTime, chargeTime);
 
 		ReloadWeapon();
 	}
