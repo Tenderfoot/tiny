@@ -23,10 +23,10 @@ public class Player : Movable {
 	public Transform ladder;
 
 	// Health stuff
-	private int health;
-	private int maxHealth;
+	private int health = 25;
+	private int maxHealth = 100;
 	private float deadTime;
-	private int respawnTime;
+	private int respawnTime = 5;
 
 	// Weapon
 	public GameObject equippedWeapon;
@@ -66,11 +66,6 @@ public class Player : Movable {
 	{
 		body = gameObject.GetComponent<Rigidbody2D>();
 		animator = transform.GetComponent<Animator>();
-
-		// some player variables...
-		health = 25;
-		maxHealth = 100;
-		respawnTime = 5;
 
 		states = new AnimatorStates(animator, new string[] {
 			"walk",
@@ -132,6 +127,11 @@ public class Player : Movable {
 		}
 
 		UpdateVitals();
+
+	}
+
+	public override void HandleHit(TinyObject tiny)
+	{
 
 	}
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Ladder : MonoBehaviour {
+public class Ladder : TinyObject {
 
 	// Use this for initialization
 	void Start () {

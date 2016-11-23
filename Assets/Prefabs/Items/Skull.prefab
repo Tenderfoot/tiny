@@ -22,6 +22,7 @@ GameObject:
   - 212: {fileID: 212000010616596716}
   - 58: {fileID: 58000011186715544}
   - 50: {fileID: 50000010854312954}
+  - 114: {fileID: 114000013714965384}
   m_Layer: 0
   m_Name: Skull
   m_TagString: Ball
@@ -73,6 +74,17 @@ CircleCollider2D:
   m_Offset: {x: 0.02, y: 0}
   serializedVersion: 2
   m_Radius: 0.4680271
+--- !u!114 &114000013714965384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012803080718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c856bd7260b09042a72d732d33d3fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000010616596716
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : TinyObject {
 
 	public Vector2 direction;
 	public float projectileSpeed;
@@ -22,10 +22,9 @@ public class Projectile : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag != "Player")
-		{
-			Destroy(other.gameObject);
-			Destroy(this.gameObject);
-		}
+		TinyObject target = other.gameObject.GetComponent<TinyObject>();
+
+		if (target != null)
+			target.HandleHit(this);
 	}
 }
