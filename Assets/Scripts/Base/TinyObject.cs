@@ -17,14 +17,15 @@ public abstract class TinyObject : MonoBehaviour {
 	public void AddPowerup(string powerup_id)
 	{
 		var powerup = PowerupManager.FindById(powerup_id);
-		powerup.OnActivated(gameObject);
+		powerup.OnActivated(this);
 		powerups.Add(powerup);
 	}
 
 	public void RemovePowerup(string powerup_id)
 	{
 		var powerup = PowerupManager.FindById(powerup_id);
-		powerup.OnDeactivated(gameObject);
+		powerup.OnDeactivated(this);
 		powerups.Remove(powerup);
 	}
+
 }

@@ -13,8 +13,10 @@ public class Commands : MonoBehaviour {
 		//{ "add_player", "|device| adds a player by device number (defaults to ActiveDevice)" },
 		//{ "remove_player", "|player_num| removes player by number (defaults to most recent player)" },
 		//{ "list_devices", "lists all available devices"},
+		{ "list_powerups", "lists all available powerups" },
 		{ "add_powerup", "adds specified powerup to first player" },
 		{ "rm_powerup", "removes the specified powerup from the first player" },
+		{ "add_exp", "adds experience to the first player" },
 		{ "mute", "toggles audio"},
 	};
 
@@ -77,22 +79,27 @@ public class Commands : MonoBehaviour {
 		AudioListener.pause = !AudioListener.pause;
 	}
 
+	static void list_powerups(string arg = "")
+	{
+		foreach (var name in PowerupManager.GetIds())
+		{
+			Console.Log(name);
+		}
+	}
+
 	static void add_powerup(string powerup_id)
 	{
-		var assignments = GameObject.Find("PlayerAssignmentManager").GetComponent<PlayerAssignmentManager>();
-		var assignment = assignments.GetAssignment(1);
-		var player = assignment.playerObject.GetComponent<Player>();
-
-		player.AddPowerup(powerup_id);
+		Tiny.Player1.AddPowerup(powerup_id);
 	}
 
 	static void rm_powerup(string powerup_id)
 	{
-		var assignments = GameObject.Find("PlayerAssignmentManager").GetComponent<PlayerAssignmentManager>();
-		var assignment = assignments.GetAssignment(1);
-		var player = assignment.playerObject.GetComponent<Player>();
+		Tiny.Player1.RemovePowerup(powerup_id);
+	}
 
-		player.RemovePowerup(powerup_id);
+	static void add_exp(string exp)
+	{
+		Tiny.Player1.AddExperience(int.Parse(exp));
 	}
 
 }

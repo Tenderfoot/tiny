@@ -17,12 +17,12 @@ public abstract class RaycastWeapon : TinyWeapon
 		RaycastHit2D hit;
 		Vector2 direction;
 
-		if (transform.parent.gameObject.transform.localScale.x > 0)
+		if (holder.transform.localScale.x > 0)
 			direction = Vector2.right;
 		else
 			direction = Vector2.left;
 
-		hit = Physics2D.Raycast(new Vector3(transform.parent.transform.position.x + direction.x, transform.parent.transform.position.y, 0), direction);
+		hit = Physics2D.Raycast(new Vector3(holder.transform.position.x + direction.x, holder.transform.position.y, 0), direction);
 
 		if (hit.collider != null)
 		{
@@ -33,7 +33,7 @@ public abstract class RaycastWeapon : TinyWeapon
 
 	void SpawnRay(RaycastHit2D hit, Vector2 dir)
 	{
-		GameObject rayEffectObj = (GameObject)Instantiate(rayEffect, new Vector2(transform.parent.transform.position.x+dir.x+((hit.distance/2)*dir.x), transform.parent.transform.position.y), Quaternion.identity);
+		GameObject rayEffectObj = (GameObject)GameObject.Instantiate(rayEffect, new Vector2(holder.transform.position.x+dir.x+((hit.distance/2)*dir.x), holder.transform.position.y), Quaternion.identity);
 		rayEffectObj.transform.localScale = new Vector3(hit.distance*dir.x, 0.25f, 1);
 	}
 

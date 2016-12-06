@@ -19,33 +19,32 @@ public class WeaponPanel : MonoBehaviour {
 		
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-		if (player != null && player.GetComponent<Player>().equippedWeapon != null)
+		if (player != null && player.GetComponent<Player>().weapon1 != null)
 		{
-			TinyWeapon test = player.GetComponent<Player>().equippedWeapon.GetComponent<TinyWeapon>();
+			TinyWeapon test = player.GetComponent<Player>().weapon1.GetComponent<TinyWeapon>();
 
 			if (test != weapon)
 				reloadOverlay.rectTransform.sizeDelta = reloadOverlayEmpty.rectTransform.sizeDelta;
 
-			weapon = player.GetComponent<Player>().equippedWeapon.GetComponent<TinyWeapon>();
+			weapon = player.GetComponent<Player>().weapon1.GetComponent<TinyWeapon>();
 
 			weaponImage.enabled = true;
 			ammoRemaining.enabled = true;
 		}
-		else if (player != null && player.GetComponent<Player>().equippedWeapon == null)
+		else if (player != null && player.GetComponent<Player>().weapon1 == null)
+		{
 			weapon = null;
-
+		}
 		if(weapon != null)
 		{
-			ammoRemaining.text = weapon.roundsInMag + " / " + weapon.magSize;
-
-			weaponImage.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+			ammoRemaining.text = weapon.GetRoundsInMag() + " / " + weapon.GetMagSize();
 
 			RectTransform startSize = reloadOverlayEmpty.rectTransform;
 			RectTransform endSize = reloadOverlayFull.rectTransform;
 
-			if (weapon.reloading)
+			if (weapon.IsReloading())
 			{
-				float timeRemaining = weapon.reloadTime / weapon.reloadDuration;
+				float timeRemaining = weapon.GetReloadTime() / weapon.GetReloadDuration();
 
 				reloadOverlay.rectTransform.sizeDelta = Vector2.Lerp(endSize.sizeDelta, startSize.sizeDelta, timeRemaining);
 				reloadOverlay.rectTransform.position = Vector3.Lerp(endSize.position, startSize.position, timeRemaining);

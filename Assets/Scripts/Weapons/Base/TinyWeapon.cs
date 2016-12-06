@@ -9,20 +9,27 @@ public abstract class TinyWeapon : TinyObject
 	// Charge you hold the trigger down then release
 	public enum FireMode { semiauto, auto, charge}
 
-	// changable in the editor...
-	public float chargeTime;
-	public float reloadDuration;
-	public float fireRate;
-	public int magSize;
-	public FireMode fireMode;
-	public Sprite weaponImage;
-	public int roundsInMag;
+	protected float chargeTime;
+	protected float reloadDuration;
+	protected float fireRate;
+	protected int magSize;
+	protected FireMode fireMode;
+	protected Sprite weaponImage;
+	protected int roundsInMag;
 
 	// Control stuff
 	private bool isPressed;
 	private float timeSinceFired;
-	public bool reloading;
-	public float reloadTime;
+	protected bool reloading;
+	protected float reloadTime;
+
+	public TinyObject holder;
+
+	public float GetReloadDuration() { return reloadDuration; }
+	public int GetMagSize() { return magSize; }
+	public int GetRoundsInMag() { return roundsInMag; }
+	public bool IsReloading() { return reloading; }
+	public float GetReloadTime() { return reloadTime; }
 
 	public void OnTriggerPressed()
 	{
@@ -50,10 +57,6 @@ public abstract class TinyWeapon : TinyObject
 		}
 	}
 
-	void Start()
-	{
-	}
-
 	void Update()
 	{ 
 		if (reloading)
@@ -78,29 +81,6 @@ public abstract class TinyWeapon : TinyObject
 
 			timeSinceFired = 0;
 			isPressed = false;
-		}
-	}
-
-	void ToggleWeapon(bool alive)
-	{
-		foreach (var collider in this.gameObject.GetComponents<Collider2D>())
-		{
-			collider.enabled = alive;
-		}
-		((SpriteRenderer)this.gameObject.GetComponent<SpriteRenderer>()).enabled = alive;
-	}
-
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		Player player = other.GetComponentInParent<Player>();
-		if(player != null)
-		{
-			if(other.transform.childCount > 0)
-				Destroy(other.transform.GetChild(0).gameObject);
-
-			player.equippedWeapon = this.gameObject;
-			player.equippedWeapon.transform.parent = player.transform;
-			ToggleWeapon(false);
 		}
 	}
 

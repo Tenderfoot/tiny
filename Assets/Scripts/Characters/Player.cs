@@ -13,7 +13,7 @@ public class Player : Movable {
 
 	// Controls
 	public PlayerActions actions { get; set; }
-	private float joystickThreshold = 0.8f;
+	private float joystickThreshold = 0.5f;
 
 	// Moving
 	public float force = 20f;
@@ -28,8 +28,57 @@ public class Player : Movable {
 	private float deadTime;
 	private int respawnTime = 5;
 
+	// Levelling
+	private Leveller leveller;
+	private Dictionary<int, Powerup> LEVEL_MAP = new Dictionary<int, Powerup>()
+	{
+		{ 1, new SniperPowerup() },
+		{ 2, new SpeedPowerup() },
+		{ 3, null },
+		{ 4, new PlasmaRiflePowerup() },
+	};
+
 	// Weapon
-	public GameObject equippedWeapon;
+	public GameObject weapon1;
+
+	// Use this for initialization
+	void Start ()
+	{
+		body = gameObject.GetComponent<Rigidbody2D>();
+		animator = transform.GetComponent<Animator>();
+
+		states = new AnimatorStates(animator, new string[] {
+			"walk",
+			"idle",
+			"jump",
+			"climb"
+		});
+
+		leveller = new Leveller(this, LEVEL_MAP);
+
+		states.ChangeState("idle");
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		CheckFire();
+
+		if (!IsDead())
+		{
+			if (OnLadder() && VerticalAction())
+				Climb();
+			else if (HorizontalAction())
+				Walk();
+			else
+				Idle();
+		}
+
+		UpdateVitals();
+	
+	}
+
+	public void AddExperience(int exp) { leveller.AddExperience(exp); }
 
 	void TogglePlayer(bool alive)
 	{
@@ -46,7 +95,6 @@ public class Player : Movable {
 		health = 0;
 		TogglePlayer(false);
 		deadTime = 0;
-		equippedWeapon = null;
 	}
 
 	void RespawnPlayer()
@@ -59,22 +107,6 @@ public class Player : Movable {
 	public int GetSpawnTimeLeft()
 	{
 		return respawnTime - ((int)deadTime);
-	}
-
-	// Use this for initialization
-	void Start ()
-	{
-		body = gameObject.GetComponent<Rigidbody2D>();
-		animator = transform.GetComponent<Animator>();
-
-		states = new AnimatorStates(animator, new string[] {
-			"walk",
-			"idle",
-			"jump",
-			"climb"
-		});
-
-		states.ChangeState("idle");
 	}
 
 	protected bool IsGrounded()
@@ -98,36 +130,17 @@ public class Player : Movable {
 
 	void CheckFire()
 	{
-		if (equippedWeapon != null)
+		if (weapon1 != null)
 		{
 			if (actions.Trigger.IsPressed)
 			{
-				equippedWeapon.GetComponent<TinyWeapon>().OnTriggerPressed();
+				weapon1.GetComponent<TinyWeapon>().OnTriggerPressed();
 			}
 			else
 			{
-				equippedWeapon.GetComponent<TinyWeapon>().OnTriggerReleased();
+				weapon1.GetComponent<TinyWeapon>().OnTriggerReleased();
 			}
 		}
-	}
-
-	// Update is called once per frame
-	void Update ()
-	{
-		CheckFire();
-
-		if (!IsDead())
-		{
-			if (OnLadder() && VerticalAction())
-				Climb();
-			else if (HorizontalAction())
-				Walk();
-			else
-				Idle();
-		}
-
-		UpdateVitals();
-
 	}
 
 	public override void HandleHit(TinyObject tiny)
