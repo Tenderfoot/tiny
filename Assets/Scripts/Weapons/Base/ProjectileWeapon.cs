@@ -13,6 +13,7 @@ public abstract class ProjectileWeapon : TinyWeapon
 		var projectile = projectileObj.GetComponent<Projectile>();
 
 		projectile.direction = ((Player)holder).actions.Aim.Value;
+		projectile.owner = holder;
 
 		if (projectile.direction == Vector2.zero)
 			projectile.direction = (holder.transform.localScale.x < 0) ? Vector2.left : Vector2.right;

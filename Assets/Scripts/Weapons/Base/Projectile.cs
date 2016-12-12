@@ -5,7 +5,9 @@ public class Projectile : TinyObject {
 
 	public Vector2 direction;
 	public float projectileSpeed;
+	public TinyObject owner;
 	private float lifeTime;
+
 	// Use this for initialization
 	void Start () {
 		lifeTime = 0;
@@ -24,7 +26,10 @@ public class Projectile : TinyObject {
 	{
 		TinyObject target = other.gameObject.GetComponent<TinyObject>();
 
-		if (target != null)
+		if (target != null && target != owner)
+		{
 			target.HandleHit(this);
+			Destroy(this.gameObject);
+		}
 	}
 }

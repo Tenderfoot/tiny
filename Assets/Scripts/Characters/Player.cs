@@ -23,7 +23,7 @@ public class Player : Movable {
 	public Transform ladder;
 
 	// Health stuff
-	private int health = 25;
+	private int health = 100;
 	private int maxHealth = 100;
 	private float deadTime;
 	private int respawnTime = 5;
@@ -146,7 +146,11 @@ public class Player : Movable {
 
 	public override void HandleHit(TinyObject tiny)
 	{
-
+		health -= 15;
+		if(health<0)
+		{
+			KillPlayer();
+		}
 	}
 
 	// player death and respawn

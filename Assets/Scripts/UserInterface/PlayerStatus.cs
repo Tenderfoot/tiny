@@ -10,7 +10,6 @@ public class PlayerStatus : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = null;
 		Timer.enabled = false;
 	}
 
@@ -29,15 +28,11 @@ public class PlayerStatus : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-		if(GameObject.FindGameObjectWithTag("Player") != null)
-			player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		
+	void Update ()
+	{
 		if(player != null)
 		{
 			UpdateHealth();
 		}
-
 	}
 }
