@@ -7,13 +7,13 @@ public class Player : Movable {
 	// Object
 	protected Rigidbody2D body;
 	protected Animator animator;
-	protected InputDevice input;
 	private AnimatorStates states;
-
+	public PlayerAssignment assignment;
 
 	// Controls
 	public PlayerActions actions { get; set; }
 	private float joystickThreshold = 0.5f;
+	protected Vector2 aimDirection = new Vector2(0, 0);
 
 	// Moving
 	public float force = 20f;
@@ -32,7 +32,7 @@ public class Player : Movable {
 	private Leveller leveller;
 	private Dictionary<int, Powerup> LEVEL_MAP = new Dictionary<int, Powerup>()
 	{
-		{ 1, new SniperPowerup() },
+		{ 1, new MachineGunPowerup() },
 		{ 2, new SpeedPowerup() },
 		{ 3, null },
 		{ 4, new PlasmaRiflePowerup() },
@@ -75,7 +75,7 @@ public class Player : Movable {
 		}
 
 		UpdateVitals();
-	
+
 	}
 
 	public void AddExperience(int exp) { leveller.AddExperience(exp); }
@@ -134,9 +134,10 @@ public class Player : Movable {
 		{
 			if (actions.Trigger.IsPressed)
 			{
+				
 				weapon1.GetComponent<TinyWeapon>().OnTriggerPressed();
 			}
-			else
+			else if (actions.Trigger.WasReleased)
 			{
 				weapon1.GetComponent<TinyWeapon>().OnTriggerReleased();
 			}
@@ -176,6 +177,14 @@ public class Player : Movable {
 		return actions.Right.Value > joystickThreshold || actions.Left.Value > joystickThreshold;
 	}
 
+	public float HealthAsPercent()
+	{
+		float result = ((float)health) / 100;
+		return result;
+	}
+
+
+	// MOVEMENTS
 	protected void Idle()
 	{
 		states.ChangeState("idle");
@@ -193,12 +202,6 @@ public class Player : Movable {
 			body.velocity = new Vector2(0, -force);
 
 		transform.position = new Vector2(ladder.position.x, transform.position.y);
-	}
-
-	public float HealthAsPercent()
-	{
-		float result = ((float)health) / 100;
-		return result;
 	}
 
 	protected void Walk()

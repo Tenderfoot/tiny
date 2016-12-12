@@ -4,7 +4,6 @@ using System.Collections;
 public abstract class WeaponPowerup : Powerup {
 
 	protected string weaponPath;
-	protected GameObject weapon;
 
 	public override void OnActivated(TinyObject tiny)
 	{
@@ -12,24 +11,22 @@ public abstract class WeaponPowerup : Powerup {
 		OnDeactivated(tiny);
 
 		var player = (Player) tiny;
-		weapon = NewWeapon();
-		player.weapon1 = weapon;
-		weapon.GetComponent<TinyWeapon>().holder = player;
+		player.weapon1 = NewWeapon();
+		player.weapon1.GetComponent<TinyWeapon>().holder = player;
 	}
 
 	public override void OnDeactivated(TinyObject tiny)
 	{
 		var player = (Player)tiny;
 
-		if (weapon != null)
-			GameObject.Destroy(weapon);
+		if (player.weapon1 != null)
+			GameObject.Destroy(player.weapon1);
 
-		player.weapon1 = weapon = null;
+		player.weapon1 = null;
 	}
 
 	private GameObject NewWeapon()
 	{
-		Debug.Log(weaponPath);
 		return GameObject.Instantiate((GameObject)Resources.Load(weaponPath));
 	}
 

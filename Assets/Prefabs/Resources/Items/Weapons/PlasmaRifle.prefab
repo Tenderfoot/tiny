@@ -51,15 +51,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52b42846a96e524d972df8aa2f54010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chargeTime: 0
-  reloadDuration: 5
-  fireRate: 0.1
-  magSize: 20
-  fireMode: 1
-  weaponImage: {fileID: 21300000, guid: f21cc7c2f05423546845fab3f62ae15e, type: 3}
-  roundsInMag: 20
-  reloading: 0
-  reloadTime: 0
   holder: {fileID: 0}
-  sprite: {fileID: 21300000, guid: f21cc7c2f05423546845fab3f62ae15e, type: 3}
-  projectile: {fileID: 1000010947145538, guid: 8e31b967ea48bea42bc6202533705997, type: 2}
+  projectilePrefab: {fileID: 1000010947145538, guid: 8e31b967ea48bea42bc6202533705997,
+    type: 2}

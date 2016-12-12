@@ -93,7 +93,7 @@ public abstract class TinyWeapon : TinyObject
 
 	void TryToFire()
 	{
-		if (roundsInMag > 0 || fireMode == FireMode.charge)
+		if (roundsInMag > 0 || fireMode == FireMode.charge || reloadDuration == 0)
 			Fire();
 		else
 			ReloadWeapon();

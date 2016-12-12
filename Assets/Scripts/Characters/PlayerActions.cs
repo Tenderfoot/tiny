@@ -12,6 +12,14 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction Trigger;
 	public PlayerOneAxisAction Move;
 
+
+	// Aiming
+	public PlayerAction AimLeft;
+	public PlayerAction AimRight;
+	public PlayerAction AimUp;
+	public PlayerAction AimDown;
+	public PlayerTwoAxisAction Aim;
+
 	public PlayerAction Join;
 
 	public PlayerActions()
@@ -25,6 +33,13 @@ public class PlayerActions : PlayerActionSet
 
 		Move = CreateOneAxisPlayerAction(Left, Right);
 
+		// Aiming
+		AimLeft = CreatePlayerAction("Aim Left");
+		AimRight = CreatePlayerAction("Aim Right");
+		AimUp = CreatePlayerAction("Aim Up");
+		AimDown = CreatePlayerAction("Aim Down");
+		Aim = CreateTwoAxisPlayerAction(AimLeft, AimRight, AimUp, AimDown);
+
 		Join = CreatePlayerAction("Join");
 	}
 
@@ -37,14 +52,23 @@ public class PlayerActions : PlayerActionSet
 		// Keys
 		playerActions.Left.AddDefaultBinding(Key.LeftArrow);
 		playerActions.Right.AddDefaultBinding(Key.RightArrow);
+		
 		// Sticks
 		playerActions.Left.AddDefaultBinding(InputControlType.LeftStickLeft);
 		playerActions.Right.AddDefaultBinding(InputControlType.LeftStickRight);
 		playerActions.Up.AddDefaultBinding(InputControlType.LeftStickUp);
 		playerActions.Down.AddDefaultBinding(InputControlType.LeftStickDown);
+
+		// Aim
+		playerActions.AimLeft.AddDefaultBinding(InputControlType.RightStickLeft);
+		playerActions.AimRight.AddDefaultBinding(InputControlType.RightStickRight);
+		playerActions.AimUp.AddDefaultBinding(InputControlType.RightStickDown);
+		playerActions.AimDown.AddDefaultBinding(InputControlType.RightStickUp);
+
 		// D-Pad
 		playerActions.Left.AddDefaultBinding(InputControlType.DPadLeft);
 		playerActions.Right.AddDefaultBinding(InputControlType.DPadRight);
+		
 		// Buttons
 		playerActions.Jump.AddDefaultBinding(InputControlType.Action1);
 		playerActions.Trigger.AddDefaultBinding(InputControlType.RightTrigger);

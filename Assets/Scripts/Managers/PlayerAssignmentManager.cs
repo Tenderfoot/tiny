@@ -20,6 +20,7 @@ public class PlayerAssignmentManager : MonoBehaviour {
 		foreach (var d in InputManager.Devices)
 		{
 			PlayerActions actions = PlayerActions.CreateWithDefaultBindings();
+			actions.Device = d;
 			knownDevices.Add(d, actions);
 			Debug.Log(string.Format("Adding new device: {0}", d.Name));
 		}
@@ -33,6 +34,11 @@ public class PlayerAssignmentManager : MonoBehaviour {
 	public PlayerAssignment GetAssignment(int player_num)
 	{
 		return assignments[player_num - 1];
+	}
+
+	public PlayerAssignment GetAssignment(Player player)
+	{
+		return assignments.Find(p => p.playerObject.GetComponent<Player>() == player);
 	}
 
 	public bool HasUnboundAssignments()
@@ -96,7 +102,9 @@ public class PlayerAssignmentManager : MonoBehaviour {
 
 			if (canAddPlayer() && actions.Join.WasPressed)
 			{
-				if (assignments.FindAll(d => d.device == device).Count == 0)
+
+
+				if (assignments.FindAll(d => d.device.GUID == device.GUID).Count == 0)
 					AddPlayer(device, actions);
 			}
 		}

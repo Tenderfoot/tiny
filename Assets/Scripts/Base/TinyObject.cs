@@ -14,16 +14,14 @@ public abstract class TinyObject : MonoBehaviour {
 		Destroy(this.gameObject);
 	}
 
-	public void AddPowerup(string powerup_id)
+	public void AddPowerup(Powerup powerup)
 	{
-		var powerup = PowerupManager.FindById(powerup_id);
 		powerup.OnActivated(this);
 		powerups.Add(powerup);
 	}
 
-	public void RemovePowerup(string powerup_id)
+	public void RemovePowerup(Powerup powerup)
 	{
-		var powerup = PowerupManager.FindById(powerup_id);
 		powerup.OnDeactivated(this);
 		powerups.Remove(powerup);
 	}

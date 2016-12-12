@@ -41,7 +41,7 @@ public class Leveller {
 
 		if (val != null)
 		{
-			host.AddPowerup(val.id);
+			host.AddPowerup(val);
 		}
 
 		Debug.Log("Level Up");

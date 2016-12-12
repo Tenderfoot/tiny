@@ -3,15 +3,20 @@ using System.Collections;
 
 public abstract class ProjectileWeapon : TinyWeapon
 {
-	public GameObject projectile;
+	public GameObject projectilePrefab;
 
 	public GameObject CreateProjectile()
 	{
 		roundsInMag--;
 
-		GameObject newProjectile = (GameObject)GameObject.Instantiate(projectile, new Vector2(holder.transform.position.x, holder.transform.position.y), Quaternion.identity);
-		newProjectile.GetComponent<Projectile>().direction = (holder.transform.localScale.x < 0) ? Vector2.left : Vector2.right;
+		GameObject projectileObj = (GameObject)GameObject.Instantiate(projectilePrefab, new Vector2(holder.transform.position.x, holder.transform.position.y), Quaternion.identity);
+		var projectile = projectileObj.GetComponent<Projectile>();
 
-		return newProjectile;
+		projectile.direction = ((Player)holder).actions.Aim.Value;
+
+		if (projectile.direction == Vector2.zero)
+			projectile.direction = (holder.transform.localScale.x < 0) ? Vector2.left : Vector2.right;
+
+		return projectileObj;
 	}
 }

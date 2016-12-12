@@ -9,10 +9,11 @@ public class PlayerAssignment {
 	public GameObject playerObject { get; set; }
 	public PlayerActions actions { get; set; }
 
-	public void Bind(GameObject player)
+	public void Bind(Player player)
 	{
-		playerObject = player;
-		playerObject.GetComponent<Player>().actions = actions;
+		playerObject = player.gameObject;
+		player.actions = actions;
+		player.assignment = this;
 	}
 
 	public override string ToString()

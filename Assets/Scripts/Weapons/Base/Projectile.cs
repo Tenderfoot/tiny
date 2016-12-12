@@ -13,7 +13,7 @@ public class Projectile : TinyObject {
 	
 	// Update is called once per frame
 	void Update () {
-		this.GetComponent<Rigidbody2D>().velocity = direction*projectileSpeed;
+		this.GetComponent<Rigidbody2D>().velocity = direction.normalized*projectileSpeed;
 		lifeTime += Time.deltaTime;
 
 		if (lifeTime > 5)
