@@ -25,7 +25,6 @@ public class Ball : TinyObject {
 
 		var force = new Vector2(x, y);
 
-		Debug.Log(force);
 		body.AddForce(force * forceConstant);
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : TinyObject {
+public class Projectile : Damager {
 
 	public Vector2 direction;
 	public float projectileSpeed;
@@ -29,7 +29,6 @@ public class Projectile : TinyObject {
 		if (target != null && target != owner)
 		{
 			target.HandleHit(this);
-			Destroy(this.gameObject);
 		}
 	}
 }

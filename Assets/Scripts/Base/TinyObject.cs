@@ -10,8 +10,7 @@ public abstract class TinyObject : MonoBehaviour {
 
 	public virtual void HandleHit(TinyObject tiny)
 	{
-		Destroy(tiny.gameObject);
-		Destroy(this.gameObject);
+		// Default behaviour is to do nothing.
 	}
 
 	public void AddPowerup(Powerup powerup)
@@ -24,6 +23,21 @@ public abstract class TinyObject : MonoBehaviour {
 	{
 		powerup.OnDeactivated(this);
 		powerups.Remove(powerup);
+	}
+
+	// Flipping and Rotation
+	public void FlipX()
+	{
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
+	}
+
+	public void FlipY()
+	{
+		Vector3 theScale = transform.localScale;
+		theScale.y *= -1;
+		transform.localScale = theScale;
 	}
 
 }

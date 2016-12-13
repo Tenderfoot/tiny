@@ -67,9 +67,11 @@ MonoBehaviour:
   tile: {fileID: 1000013250758702, guid: 2ea03254431054544885b8ffeb2fa574, type: 2}
   ladderTile: {fileID: 1000010083577892, guid: ecf791188db96774a95efc3f9a2d2be8, type: 2}
   goalArea: {fileID: 1000013527274466, guid: 9be8b96137ced1a42bc92cd44827ca9d, type: 2}
-  corner: {fileID: 21300000, guid: 4502f262c2cb9da4e998d9b274bbe843, type: 3}
-  oneSidedVertical: {fileID: 21300000, guid: 48159680580438b42999454f6044577c, type: 3}
-  oneSidedHorizontal: {fileID: 21300000, guid: 8f33e8169989b5342aaef3919837155f, type: 3}
-  threeSided: {fileID: 21300000, guid: e52ad51863c9e374db191717a1b9bbb3, type: 3}
-  middle: {fileID: 21300000, guid: 611ad8f16d6c3124a87c86df558f67f7, type: 3}
+  corner: {fileID: 1000013459197792, guid: 3b90fc0b6faf4df4eac11d0e964aedf5, type: 2}
+  oneSidedVertical: {fileID: 1000013663847646, guid: b5e9299ea49dc5c488f1b1fc147ea625,
+    type: 2}
+  oneSidedHorizontal: {fileID: 1000013023135742, guid: ebb82475e57f73c458bdec1d168760bc,
+    type: 2}
+  threeSided: {fileID: 1000011419067932, guid: c0727ad57378881469abe4acd4aa7f03, type: 2}
+  middle: {fileID: 1000012458004854, guid: 69eeaad0def758c46a175649cd44aa8e, type: 2}
   map: {fileID: 0}

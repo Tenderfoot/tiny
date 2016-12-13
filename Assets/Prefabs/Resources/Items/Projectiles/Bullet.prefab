@@ -85,8 +85,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2799cf5236848d74aada7eb958291cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
   direction: {x: 0, y: 0}
   projectileSpeed: 100
+  owner: {fileID: 0}
 --- !u!212 &212000012738875578
 SpriteRenderer:
   m_ObjectHideFlags: 1
