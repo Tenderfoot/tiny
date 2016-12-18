@@ -40,4 +40,9 @@ public abstract class TinyObject : MonoBehaviour {
 		transform.localScale = theScale;
 	}
 
+	public void rotate(int degrees)
+	{
+		transform.Rotate(transform.rotation.x, transform.rotation.y + degrees, transform.rotation.z);
+	}
+
 }

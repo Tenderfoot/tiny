@@ -6,7 +6,7 @@ enum TileType { none, ground, ladder, goalArea };
 public class TerrainGenerator : MonoBehaviour {
 
 	public GameObject tile, ladderTile, goalArea;
-	public GameObject corner, oneSidedVertical, oneSidedHorizontal, threeSided, middle;
+	public GameObject corner, oneSidedHorizontal, threeSided, middle;
 	public Sprite map;
 
 	private int rows, columns;
@@ -84,11 +84,13 @@ public class TerrainGenerator : MonoBehaviour {
 			CreateTile(middle, i, j, false, false);
 		else if (isSolid(i - 1, j) && isSolid(i + 1, j) && isSolid(i, j + 1)) // empty top
 		{
-			CreateTile(oneSidedVertical, i, j, false, true);
+			var obj = CreateTile(oneSidedHorizontal, i, j, false, false);
+			obj.transform.Rotate(0, 0, 90);
 		}
 		else if (isSolid(i - 1, j) && isSolid(i + 1, j) && isSolid(i, j - 1)) // empty bottom
 		{
-			CreateTile(oneSidedVertical, i, j, false, false);
+			var obj = CreateTile(oneSidedHorizontal, i, j, true, false);
+			obj.transform.Rotate(0, 0, 90);
 		}
 		else if (isSolid(i + 1, j) && isSolid(i, j + 1) && isSolid(i, j - 1)) // empty left
 		{
@@ -115,7 +117,8 @@ public class TerrainGenerator : MonoBehaviour {
 			CreateTile(corner, i, j, true, true);
 		}
 		else {
-			CreateTile(oneSidedVertical, i, j, false, false);
+			var obj = CreateTile(oneSidedHorizontal, i, j, true, false);
+			obj.transform.Rotate(0, 0, 90);
 		}
 	}
 

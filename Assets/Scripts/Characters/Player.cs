@@ -20,7 +20,7 @@ public class Player : Movable {
 	public float jumpForce = 20000f;
 	private float feetOffset = 1.54f;
 
-	public Transform ladder;
+	private Collider2D ladder = null;
 
 	// Health stuff
 	private int health = 100;
@@ -63,6 +63,7 @@ public class Player : Movable {
 	void Update()
 	{
 		CheckFire();
+		CheckLadder();
 
 		if (!IsDead())
 		{
@@ -166,6 +167,24 @@ public class Player : Movable {
 			RespawnPlayer();
 	}
 
+	protected void CheckLadder()
+	{
+		var r = GetComponent<Renderer>();
+
+		var corner1 = r.bounds.center + r.bounds.extents / 2;
+		var corner2 = r.bounds.center - r.bounds.extents / 2;
+		var prevLadder = ladder;
+
+		ladder = Physics2D.OverlapArea(corner1, corner2, 1 << LayerMask.NameToLayer("ladder"));
+
+		var isClimbing = actions.Up.Value > joystickThreshold || actions.Down.Value > joystickThreshold;
+
+		if (ladder == null && prevLadder != null && isClimbing)
+		{
+			body.velocity = new Vector2(0, 0);
+		}
+	}
+
 	protected bool OnLadder()
 	{
 		return ladder != null;
@@ -197,21 +216,26 @@ public class Player : Movable {
 
 	protected void Climb()
 	{
-		Idle();
 		states.ChangeState("climb");
+
 
 		if (actions.Up.Value > joystickThreshold)
 			body.velocity = new Vector2(0, force);
 		else if (actions.Down.Value > joystickThreshold)
 			body.velocity = new Vector2(0, -force);
 
-		transform.position = new Vector2(ladder.position.x, transform.position.y);
+		MoveHorizontal();
 	}
 
 	protected void Walk()
 	{
 		states.ChangeState("walk");
 
+		MoveHorizontal();
+	}
+
+	protected void MoveHorizontal()
+	{
 		Vector2 forceVector = body.velocity;
 
 		if (actions.Left.Value > joystickThreshold)
