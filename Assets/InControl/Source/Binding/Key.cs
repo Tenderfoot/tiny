@@ -132,6 +132,7 @@
 
 		// Other
 		AltGr,
+		CapsLock
 
 		// Unity doesn't define/support these. :(
 		// F16,

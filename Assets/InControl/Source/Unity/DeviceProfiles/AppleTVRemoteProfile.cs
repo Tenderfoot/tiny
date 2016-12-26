@@ -9,6 +9,9 @@ namespace InControl
 			Name = "Apple TV Remote";
 			Meta = "Apple TV Remote on tvOS";
 
+			DeviceClass = InputDeviceClass.Remote;
+			DeviceStyle = InputDeviceStyle.AppleMFi;
+
 			IncludePlatforms = new[] {
 				"AppleTV"
 			};

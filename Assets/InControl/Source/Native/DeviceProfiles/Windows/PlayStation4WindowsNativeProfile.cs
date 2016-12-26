@@ -10,6 +10,9 @@ namespace InControl.NativeProfile
 			Meta = "PlayStation 4 Controller on Windows";
 			// Link = "http://www.amazon.com/DualShock-Wireless-Controller-PlayStation-Black-4/dp/B00BGA9X9W";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.PlayStation4;
+
 			IncludePlatforms = new[] {
 				"Windows"
 			};
@@ -18,7 +21,14 @@ namespace InControl.NativeProfile
 				new NativeInputDeviceMatcher {
 					VendorID = 0x54c,
 					ProductID = 0x5c4,
-					// VersionNumber = 0x0,
+				},
+				new NativeInputDeviceMatcher {
+					VendorID = 0x54c,
+					ProductID = 0x9cc,
+				},
+				new NativeInputDeviceMatcher {
+					VendorID = 0x54c,
+					ProductID = 0xba0,
 				},
 			};
 

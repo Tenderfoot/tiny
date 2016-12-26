@@ -14,6 +14,9 @@ namespace InControl
 		public string Meta { get; protected set; }
 		public int SortOrder { get; protected set; }
 
+		public InputDeviceClass DeviceClass { get; protected set; }
+		public InputDeviceStyle DeviceStyle { get; protected set; }
+
 		public Guid GUID { get; private set; }
 		public ulong LastChangeTick { get; private set; }
 		public bool IsAttached { get; private set; }
@@ -67,6 +70,9 @@ namespace InControl
 			GUID = Guid.NewGuid();
 			LastChangeTick = 0;
 			SortOrder = int.MaxValue;
+
+			DeviceClass = InputDeviceClass.Unknown;
+			DeviceStyle = InputDeviceStyle.Unknown;
 
 			const int numInputControlTypes = (int) InputControlType.Count + 1;
 			ControlsByTarget = new InputControl[numInputControlTypes];

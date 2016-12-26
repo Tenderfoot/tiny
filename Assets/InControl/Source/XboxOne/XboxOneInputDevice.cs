@@ -3,7 +3,13 @@
 
 #if UNITY_XBOXONE
 // If you're getting a compilation error about the type or namespace 'Gamepad' being missing,
-// you need to install the Gamepad plugin from Unity Native Plugins for Xbox One.
+// you need to install gamepad.dll which can be found in the Unity Xbox Forums:
+// > Build Downloads (Sticky Topic)
+// > Latest Builds
+// > Unity's Xbox One Native Plugins
+// Gamepad.dll can be found in Binaries\Native\Variations\Durango_Release
+// Put it in Assets/Plugins/XboxOne. Use the plugin inspector (when you click on the gamepad.dll) 
+// to make sure it is set to only be activated on Xbox One.
 using Gamepad;
 #endif
 
@@ -38,6 +44,11 @@ namespace InControl
 			JoystickId = joystickId;
 			SortOrder = (int) joystickId;
 			Meta = "Xbox One Device #" + joystickId;
+
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.XboxOne;
+
+			CacheAnalogAxisNames();
 
 #if UNITY_XBOXONE
 			ControllerId = XboxOneInput.GetControllerId( joystickId );
@@ -128,7 +139,7 @@ namespace InControl
 
 		float GetAnalogValue( uint analogId )
 		{
-			return Input.GetAxisRaw( "joystick " + JoystickId + " analog " + analogId );
+			return Input.GetAxisRaw( AnalogAxisNameForId( analogId ) );
 		}
 #endif
 
@@ -149,7 +160,7 @@ namespace InControl
 		public override void Vibrate( float leftMotor, float rightMotor )
 		{
 #if UNITY_XBOXONE
-			GamepadPlugin.SetGamepadVibration( ControllerId, leftMotor, rightMotor, leftMotor, rightMotor );
+			GamepadPlugin.SetGamepadVibration( ControllerId, leftMotor, rightMotor, 0, 0 );
 #endif
 		}
 
@@ -159,6 +170,25 @@ namespace InControl
 #if UNITY_XBOXONE
 			GamepadPlugin.SetGamepadVibration( ControllerId, leftMotor, rightMotor, leftTrigger, rightTrigger );
 #endif
+		}
+
+
+		string[] analogAxisNameForId;
+		void AnalogAxisNameForId( uint analogId )
+		{
+			analogAxisNameForId[analogId] = "joystick " + JoystickId + " analog " + analogId;
+		}
+
+
+		void CacheAnalogAxisNames()
+		{
+			analogAxisNameForId = new string[16];
+			AnalogAxisNameForId( AnalogLeftStickX );
+			AnalogAxisNameForId( AnalogLeftStickY );
+			AnalogAxisNameForId( AnalogRightStickX );
+			AnalogAxisNameForId( AnalogRightStickY );
+			AnalogAxisNameForId( AnalogLeftTrigger );
+			AnalogAxisNameForId( AnalogRightTrigger );
 		}
 	}
 }

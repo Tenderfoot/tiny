@@ -165,6 +165,9 @@ namespace InControl
 					y += lineHeight;
 				}
 
+				GUI.Label( new Rect( x, y, x + w, y + 10 ), "Style: " + inputDevice.DeviceStyle, style );
+				y += lineHeight;
+
 				GUI.Label( new Rect( x, y, x + w, y + 10 ), "GUID: " + inputDevice.GUID, style );
 				y += lineHeight;
 

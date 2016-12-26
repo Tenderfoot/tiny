@@ -9,6 +9,9 @@
 			Name = "Apple TV Controller";
 			Meta = "Apple TV Controller on tvOS";
 
+			DeviceClass = InputDeviceClass.Controller;
+			DeviceStyle = InputDeviceStyle.AppleMFi;
+
 			IncludePlatforms = new[] {
 				"AppleTV"
 			};

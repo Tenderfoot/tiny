@@ -44,6 +44,9 @@ namespace InControl
 				Name = profile.Name ?? Info.name;
 				Meta = profile.Meta ?? Info.name;
 
+				DeviceClass = profile.DeviceClass;
+				DeviceStyle = profile.DeviceStyle;
+
 				var analogMappingCount = profile.AnalogCount;
 				for (var i = 0; i < analogMappingCount; i++)
 				{
@@ -102,7 +105,7 @@ namespace InControl
 			if (Native.GetDeviceState( Handle, out data ))
 			{
 				Marshal.Copy( data, buttons, 0, buttons.Length );
-				data = new IntPtr( data.ToInt64() + (buttons.Length * sizeof(Int16)) );
+				data = new IntPtr( data.ToInt64() + (buttons.Length * sizeof( Int16 )) );
 				Marshal.Copy( data, analogs, 0, analogs.Length );
 			}
 
@@ -224,8 +227,8 @@ namespace InControl
 		public override bool IsSupportedOnThisPlatform
 		{
 			get
-			{ 
-				return profile == null || profile.IsSupportedOnThisPlatform; 
+			{
+				return profile == null || profile.IsSupportedOnThisPlatform;
 			}
 		}
 
@@ -233,7 +236,7 @@ namespace InControl
 		public override bool IsKnown
 		{
 			get
-			{ 
+			{
 				return profile != null;
 			}
 		}

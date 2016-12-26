@@ -214,6 +214,7 @@ namespace InControl
 				if (action.UpdateTick > UpdateTick)
 				{
 					UpdateTick = action.UpdateTick;
+					activeDevice = action.ActiveDevice;
 				}
 
 				if (action.LastInputTypeChangedTick > lastInputTypeChangedTick)
@@ -366,6 +367,21 @@ namespace InControl
 			set
 			{
 				listenOptions = value ?? new BindingListenOptions();
+			}
+		}
+
+
+		InputDevice activeDevice;
+		/// <summary>
+		/// Gets the currently active device (controller) if present, otherwise returns a null device which does nothing.
+		/// The currently active device is defined as the last device that provided input to an action on this set.
+		/// When LastInputType is not a device (controller), this will return the null device.
+		/// </summary>
+		public InputDevice ActiveDevice
+		{
+			get
+			{
+				return (activeDevice == null) ? InputDevice.Null : activeDevice;
 			}
 		}
 

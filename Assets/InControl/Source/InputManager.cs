@@ -5,6 +5,10 @@ namespace InControl
 	using System.Collections.ObjectModel;
 	using UnityEngine;
 
+#if NETFX_CORE
+	using System.Reflection;
+#endif
+
 
 	public class InputManager
 	{

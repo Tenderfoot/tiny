@@ -62,6 +62,7 @@
 			playerActions.ListenOptions.IncludeUnknownControllers = true;
 			playerActions.ListenOptions.MaxAllowedBindings = 4;
 			//playerActions.ListenOptions.MaxAllowedBindingsPerType = 1;
+			//playerActions.ListenOptions.AllowDuplicateBindingsPerSet = true;
 			//playerActions.ListenOptions.UnsetDuplicateBindingsOnSet = true;
 			//playerActions.ListenOptions.IncludeMouseButtons = true;
 			//playerActions.ListenOptions.IncludeModifiersAsFirstClassKeys = true;

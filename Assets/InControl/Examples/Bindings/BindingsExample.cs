@@ -1,5 +1,6 @@
 namespace BindingsExample
 {
+	using InControl;
 	using UnityEngine;
 
 
@@ -77,6 +78,9 @@ namespace BindingsExample
 			GUI.Label( new Rect( 10, y, 300, y + h ), "Last Input Type: " + playerActions.LastInputType );
 			y += h;
 
+			//GUI.Label( new Rect( 10, y, 300, y + h ), "Active Device: " + playerActions.ActiveDevice.Name );
+			//y += h;
+
 			var actionCount = playerActions.Actions.Count;
 			for (var i = 0; i < actionCount; i++)
 			{
@@ -88,7 +92,8 @@ namespace BindingsExample
 					name += " (Listening)";
 				}
 				name += " = " + action.Value;
-				GUI.Label( new Rect( 10, y, 300, y + h ), name );
+				//name += " via " + action.ActiveDevice.Name;
+				GUI.Label( new Rect( 10, y, 500, y + h ), name );
 				y += h;
 
 				var bindingCount = action.Bindings.Count;

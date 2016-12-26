@@ -207,6 +207,7 @@
 
 			// Other
 			new KeyInfo( Key.AltGr, "Alt Graphic", KeyCode.AltGr ),
+			new KeyInfo( Key.CapsLock, "Caps Lock", KeyCode.CapsLock ),
 
 			// Unity doesn't define/support these :(
 			// new KeyInfo( Key.F16, "F16", KeyCode.F16 ),

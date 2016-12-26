@@ -12,7 +12,6 @@ public class PlayerActions : PlayerActionSet
 	public PlayerAction Trigger;
 	public PlayerOneAxisAction Move;
 
-
 	// Aiming
 	public PlayerAction AimLeft;
 	public PlayerAction AimRight;

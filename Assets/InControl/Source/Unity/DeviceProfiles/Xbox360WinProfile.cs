@@ -6,8 +6,8 @@ namespace InControl
 	{
 		public Xbox360WinProfile()
 		{
-			Name = "XBox 360 Controller";
-			Meta = "XBox 360 Controller on Windows";
+			Name = "Xbox 360 Controller";
+			Meta = "Xbox 360 Controller on Windows";
 
 			IncludePlatforms = new[] {
 				"Windows"

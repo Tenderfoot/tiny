@@ -11,6 +11,8 @@ namespace InControl
 			Name = "SteelSeries Stratus XL";
 			Meta = "SteelSeries Stratus XL on Android";
 
+			DeviceClass = InputDeviceClass.Controller;
+
 			IncludePlatforms = new[] {
 				"Android",
 			};

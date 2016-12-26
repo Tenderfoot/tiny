@@ -126,47 +126,6 @@ namespace InControl
 					}
 				}
 			}
-
-			/*
-			while (Native.AttachedDeviceQueue.Dequeue( out deviceHandle ))
-			{
-				var stringBuilder = new StringBuilder( 256 );
-				stringBuilder.Append( "Attached native device with handle " + deviceHandle + ":\n" );
-
-				NativeDeviceInfo deviceInfo;
-				if (Native.GetDeviceInfo( deviceHandle, out deviceInfo ))
-				{
-					stringBuilder.AppendFormat( "Name: {0}\n", deviceInfo.name );
-					stringBuilder.AppendFormat( "Driver Type: {0}\n", deviceInfo.driverType );
-					stringBuilder.AppendFormat( "Location ID: {0}\n", deviceInfo.location );
-					stringBuilder.AppendFormat( "Serial Number: {0}\n", deviceInfo.serialNumber );
-					stringBuilder.AppendFormat( "Vendor ID: 0x{0:x}\n", deviceInfo.vendorID );
-					stringBuilder.AppendFormat( "Product ID: 0x{0:x}\n", deviceInfo.productID );
-					stringBuilder.AppendFormat( "Version Number: 0x{0:x}\n", deviceInfo.versionNumber );
-					stringBuilder.AppendFormat( "Buttons: {0}\n", deviceInfo.numButtons );
-					stringBuilder.AppendFormat( "Analogs: {0}\n", deviceInfo.numAnalogs );
-
-					DetectDevice( deviceHandle, deviceInfo );
-				}
-
-				Logger.LogInfo( stringBuilder.ToString() );
-			}
-
-			while (Native.DetachedDeviceQueue.Dequeue( out deviceHandle ))
-			{
-				Logger.LogInfo( "Detached native device with handle " + deviceHandle + ":" );
-
-				var device = FindAttachedDevice( deviceHandle );
-				if (device != null)
-				{
-					DetachDevice( device );
-				}
-				else
-				{
-					Logger.LogWarning( "Couldn't find device to detach with handle: " + deviceHandle );
-				}
-			}
-			*/
 		}
 
 
@@ -306,7 +265,7 @@ namespace InControl
 				Application.platform != RuntimePlatform.WindowsPlayer &&
 				Application.platform != RuntimePlatform.WindowsEditor)
 			{
-				errors.Add( "Native input is currently only supported on Windows and Mac." );
+				// Don't add errors here. Just fail silently on unsupported platforms.
 				return false;
 			}
 

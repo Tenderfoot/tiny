@@ -13,7 +13,6 @@ public class Player : Movable {
 	// Controls
 	public PlayerActions actions { get; set; }
 	private float joystickThreshold = 0.5f;
-	protected Vector2 aimDirection = new Vector2(0, 0);
 
 	// Moving
 	public float force = 20f;
