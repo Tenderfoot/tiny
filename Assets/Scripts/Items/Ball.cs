@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Ball : TinyObject {
 
-	private float forceConstant = 10000f;
+	private float forceConstant = 5000f;
 	private Rigidbody2D body;
 
 	// Use this for initialization
@@ -22,5 +22,7 @@ public class Ball : TinyObject {
 		var projectileBody = tiny.gameObject.GetComponent<Rigidbody2D>();
 
 		body.AddForce(projectileBody.velocity.normalized * forceConstant * damager.damage);
+
+		GameObject.Destroy(tiny.gameObject);
 	}
 }

@@ -146,11 +146,13 @@ public class Player : Movable {
 
 	public override void HandleHit(TinyObject tiny)
 	{
-		health -= 15;
+		health -= ((Damager)tiny).damage;
 		if(health<0)
 		{
 			KillPlayer();
 		}
+
+		GameObject.Destroy(tiny.gameObject);
 	}
 
 	// player death and respawn
