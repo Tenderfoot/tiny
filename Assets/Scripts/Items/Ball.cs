@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Ball : TinyObject {
 
-	private float forceConstant = 100000f;
+	private float forceConstant = 10000f;
 	private Rigidbody2D body;
 
 	// Use this for initialization
@@ -18,13 +18,9 @@ public class Ball : TinyObject {
 
 	public override void HandleHit(TinyObject tiny)
 	{
-		var obj = tiny.gameObject;
+		var damager = (Damager)tiny;
+		var projectileBody = tiny.gameObject.GetComponent<Rigidbody2D>();
 
-		var x = transform.position.x - obj.transform.position.x;
-		var y = transform.position.y - obj.transform.position.y;
-
-		var force = new Vector2(x, y);
-
-		body.AddForce(force * forceConstant);
+		body.AddForce(projectileBody.velocity.normalized * forceConstant * damager.damage);
 	}
 }

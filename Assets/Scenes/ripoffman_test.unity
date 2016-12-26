@@ -1229,7 +1229,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 43.890244
+  orthographic size: 48
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   xInputUpdateRate: 0
   xInputOverrideBufferSize: 0
   xInputBufferSize: 0
-  enableNativeInput: 0
+  enableNativeInput: 1
   nativeInputEnableXInput: 1
   nativeInputPreventSleep: 0
   nativeInputOverrideUpdateRate: 0
