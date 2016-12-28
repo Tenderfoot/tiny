@@ -17,6 +17,9 @@ public class Player : Movable {
 	// Moving
 	public float force = 20f;
 	public float jumpForce = 20000f;
+	public int extraJumps = 0;
+	public int jumpsUsed = 0;
+	public bool jumpReleased = true;
 	private float feetOffset = 1.54f;
 
 	private Collider2D ladder = null;
@@ -33,7 +36,7 @@ public class Player : Movable {
 	{
 		{ 1, new MachineGunPowerup() },
 		{ 2, new SpeedPowerup() },
-		{ 3, null },
+		{ 3, new DoubleJumpPowerup },
 		{ 4, new PlasmaRiflePowerup() },
 	};
 
@@ -114,13 +117,47 @@ public class Player : Movable {
 		return Physics2D.Linecast(transform.position, new Vector2((float)transform.position.x, transform.position.y - feetOffset), 1 << LayerMask.NameToLayer("ground"));
 	}
 
+	protected void Jump()
+	{
+		Vector2 force = (transform.up * jumpForce);
+		body.velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
+		body.AddForce(force);
+		jumpReleased = false;
+	}
+
+	protected void CheckJump()
+	{
+
+		if (!actions.Jump.IsPressed)
+		{
+			jumpReleased = true;
+		}
+
+		if (IsGrounded() && jumpsUsed > 0)
+		{
+			jumpsUsed = 0;
+		}
+
+		if (actions.Jump.IsPressed && jumpReleased) 
+		{
+			if (IsGrounded())
+			{
+				Jump();
+			}
+			else if (extraJumps > jumpsUsed)
+			{
+				Jump();
+				jumpsUsed += 1;
+			}
+
+
+		}
+
+	}
+
 	void FixedUpdate()
 	{
-		if (actions.Jump.IsPressed && IsGrounded())
-		{
-			Vector2 force = (transform.up * jumpForce);
-			body.AddForce(force);
-		}
+		CheckJump();
 	}
 
 	public bool IsDead()
