@@ -36,7 +36,7 @@ public class Player : Movable {
 	{
 		{ 1, new MachineGunPowerup() },
 		{ 2, new SpeedPowerup() },
-		{ 3, new DoubleJumpPowerup },
+		{ 3, new DoubleJumpPowerup() },
 		{ 4, new PlasmaRiflePowerup() },
 	};
 
@@ -64,11 +64,11 @@ public class Player : Movable {
 	// Update is called once per frame
 	void Update()
 	{
-		CheckFire();
-		CheckLadder();
-
 		if (!IsDead())
 		{
+			CheckFire();
+			CheckLadder();
+
 			if (OnLadder() && VerticalAction())
 				Climb();
 			else if (HorizontalAction())
