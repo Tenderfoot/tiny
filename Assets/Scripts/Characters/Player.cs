@@ -53,7 +53,8 @@ public class Player : Movable {
 			"walk",
 			"idle",
 			"jump",
-			"climb"
+			"climb",
+			"death"
 		});
 
 		leveller = new Leveller(this, LEVEL_MAP);
@@ -89,15 +90,15 @@ public class Player : Movable {
 		{
 			collider.enabled = alive;
 		}
-		((SpriteRenderer)this.gameObject.GetComponent<SpriteRenderer>()).enabled = alive;
+		//((SpriteRenderer)this.gameObject.GetComponent<SpriteRenderer>()).enabled = alive;
 		((Rigidbody2D)this.gameObject.GetComponent<Rigidbody2D>()).isKinematic = !alive;
 	}
 
 	void KillPlayer()
 	{
+		states.ChangeState("death");
 		health = 0;
 		TogglePlayer(false);
-		deadTime = 0;
 	}
 
 	void RespawnPlayer()
@@ -105,6 +106,7 @@ public class Player : Movable {
 		health = maxHealth;
 		TogglePlayer(true);
 		gameObject.transform.position = new Vector3(0, 50, 0);
+		deadTime = 0;
 	}
 
 	public int GetSpawnTimeLeft()
@@ -162,7 +164,7 @@ public class Player : Movable {
 
 	public bool IsDead()
 	{
-		return health == 0;
+		return health <= 0;
 	}
 
 	void CheckFire()
@@ -189,7 +191,7 @@ public class Player : Movable {
 			KillPlayer();
 		}
 
-		GameObject.Destroy(tiny.gameObject);
+		//GameObject.Destroy(tiny.gameObject);
 	}
 
 	// player death and respawn

@@ -29,6 +29,7 @@ public class Projectile : Damager {
 		if (target != null && target != owner)
 		{
 			target.HandleHit(this);
+			GameObject.Destroy(gameObject);
 		}
 	}
 }
