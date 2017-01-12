@@ -7,9 +7,9 @@ public class PlasmaRifle : ProjectileWeapon
 	public PlasmaRifle()
 	{
 		chargeTime = 0;
-		reloadDuration = 5;
+		reloadDuration = 0;
 		fireRate = 0.1f;
-		magSize = 20;
+		magSize = 1;
 		fireMode = FireMode.auto;
 		roundsInMag = magSize;
 	}

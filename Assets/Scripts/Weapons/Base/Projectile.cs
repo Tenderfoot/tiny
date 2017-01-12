@@ -5,7 +5,7 @@ public class Projectile : Damager {
 
 	public Vector2 direction;
 	public float projectileSpeed;
-	public TinyObject owner;
+	public Player owner;
 	private float lifeTime;
 
 	// Use this for initialization

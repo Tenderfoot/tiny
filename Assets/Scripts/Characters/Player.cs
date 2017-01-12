@@ -31,6 +31,7 @@ public class Player : Movable {
 	private int respawnTime = 5;
 
 	// Levelling
+	public int experienceValue = 50; //amount of exp you get for killing this player
 	private Leveller leveller;
 	private Dictionary<int, Powerup> LEVEL_MAP = new Dictionary<int, Powerup>()
 	{
@@ -96,6 +97,7 @@ public class Player : Movable {
 
 	void KillPlayer()
 	{
+		Debug.Log("DYING");
 		states.ChangeState("death");
 		health = 0;
 		TogglePlayer(false);
@@ -185,13 +187,14 @@ public class Player : Movable {
 
 	public override void HandleHit(TinyObject tiny)
 	{
-		health -= ((Damager)tiny).damage;
+		// Once we have different things hitting the player we can diversify this
+		var projectile = (Projectile)tiny;
+		health -= projectile.damage;
 		if(health<0)
 		{
 			KillPlayer();
+			projectile.owner.AddExperience(experienceValue);
 		}
-
-		//GameObject.Destroy(tiny.gameObject);
 	}
 
 	// player death and respawn

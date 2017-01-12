@@ -12,7 +12,6 @@ public class DoubleJumpPowerup : Powerup {
 
 	public override void OnActivated(TinyObject tiny)
 	{
-		Debug.Log("hi");
 		var player = (Player)tiny;
 		player.extraJumps += 1; 
 	}
