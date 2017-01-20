@@ -32,6 +32,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000014238530420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011938991364}
+  m_Layer: 0
+  m_Name: wallJumpCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: -3993051910640687065, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4000011544933200
 Transform:
   m_ObjectHideFlags: 1
@@ -42,8 +57,22 @@ Transform:
   m_LocalPosition: {x: -49.643597, y: 28.62716, z: 10}
   m_LocalScale: {x: 5.200162, y: 5.3501673, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 4000011938991364}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &4000011938991364
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014238530420}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.138, y: -0.023, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011544933200}
   m_RootOrder: 0
 --- !u!50 &50000011585961780
 Rigidbody2D:
@@ -123,6 +152,13 @@ MonoBehaviour:
   extraJumps: 0
   jumpsUsed: 0
   jumpReleased: 1
+  wallSlideCheck: {fileID: 4000011938991364}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+  material: {fileID: 6200000, guid: 2c739de51582365449860b8a581672d2, type: 2}
+  wallSlideMaterial: {fileID: 6200000, guid: 63d7a3499b37a704db0e708ef2d776db, type: 2}
+  experienceValue: 50
   weapon1: {fileID: 0}
 --- !u!212 &212000014266626296
 SpriteRenderer:

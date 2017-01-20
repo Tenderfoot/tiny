@@ -22,6 +22,13 @@ public class Player : Movable {
 	public bool jumpReleased = true;
 	private float feetOffset = 1.54f;
 
+	// Wall Slide
+	private float wallSlideSpeed = 5f;
+	public Transform wallSlideCheck;
+	private float wallCheckRadius = 0.2f;
+
+	public LayerMask whatIsGround;
+
 	private Collider2D ladder = null;
 
 	// Health stuff
@@ -55,7 +62,8 @@ public class Player : Movable {
 			"idle",
 			"jump",
 			"climb",
-			"death"
+			"death",
+			"wall_slide"
 		});
 
 		leveller = new Leveller(this, LEVEL_MAP);
@@ -72,7 +80,7 @@ public class Player : Movable {
 			CheckLadder();
 
 			if (OnLadder() && VerticalAction())
-				Climb();
+				Climb();				
 			else if (HorizontalAction())
 				Walk();
 			else
@@ -83,6 +91,14 @@ public class Player : Movable {
 
 	}
 
+	void FixedUpdate()
+	{
+		CheckJump();
+
+		if (IsWallSliding())
+			WallSlide();
+	}
+
 	public void AddExperience(int exp) { leveller.AddExperience(exp); }
 
 	void TogglePlayer(bool alive)
@@ -91,13 +107,11 @@ public class Player : Movable {
 		{
 			collider.enabled = alive;
 		}
-		//((SpriteRenderer)this.gameObject.GetComponent<SpriteRenderer>()).enabled = alive;
 		((Rigidbody2D)this.gameObject.GetComponent<Rigidbody2D>()).isKinematic = !alive;
 	}
 
 	void KillPlayer()
 	{
-		Debug.Log("DYING");
 		states.ChangeState("death");
 		health = 0;
 		TogglePlayer(false);
@@ -116,9 +130,20 @@ public class Player : Movable {
 		return respawnTime - ((int)deadTime);
 	}
 
+	protected bool IsWallSliding()
+	{
+		return Physics2D.OverlapCircle(wallSlideCheck.position, wallCheckRadius, whatIsGround) && !IsGrounded() && (actions.Left.IsPressed || actions.Right.IsPressed);
+	}
+
 	protected bool IsGrounded()
 	{
-		return Physics2D.Linecast(transform.position, new Vector2((float)transform.position.x, transform.position.y - feetOffset), 1 << LayerMask.NameToLayer("ground"));
+		return Physics2D.Linecast(transform.position, new Vector2((float)transform.position.x, transform.position.y - feetOffset), whatIsGround);
+	}
+
+	protected void WallSlide()
+	{
+		states.ChangeState("wall_slide");
+		body.velocity = new Vector2(body.velocity.x, Vector2.down.y * wallSlideSpeed);
 	}
 
 	protected void Jump()
@@ -129,6 +154,14 @@ public class Player : Movable {
 		jumpReleased = false;
 	}
 
+	protected void CheckWallSlide()
+	{
+		if ((actions.Right.IsPressed || actions.Left.IsPressed))
+		{
+			states.ChangeState("wall_slide");
+		}
+	}
+
 	protected void CheckJump()
 	{
 
@@ -137,14 +170,14 @@ public class Player : Movable {
 			jumpReleased = true;
 		}
 
-		if (IsGrounded() && jumpsUsed > 0)
+		if ((IsGrounded() || IsWallSliding()) && jumpsUsed > 0)
 		{
 			jumpsUsed = 0;
 		}
 
 		if (actions.Jump.IsPressed && jumpReleased) 
 		{
-			if (IsGrounded())
+			if (IsGrounded() || IsWallSliding())
 			{
 				Jump();
 			}
@@ -157,11 +190,6 @@ public class Player : Movable {
 
 		}
 
-	}
-
-	void FixedUpdate()
-	{
-		CheckJump();
 	}
 
 	public bool IsDead()
